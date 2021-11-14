@@ -1,0 +1,94 @@
+---CREATE DATABASE Insurance--- 
+IF NOT EXISTS(SELECT * FROM sys.databases WHERE NAME = 'Insurance')
+BEGIN
+    CREATE DATABASE Insurance
+END
+GO
+    USE Insurance
+GO
+
+---CREATE TABLE PatientDetails---
+IF EXISTS (SELECT * FROM SYS.TABLES WHERE NAME = N'PatientDetails' and TYPE = 'U') 
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM PatientDetails )
+	BEGIN 
+		DROP TABLE PatientDetails
+	END
+END
+
+IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE name='PatientDetails' and TYPE='U')
+BEGIN
+    CREATE TABLE PatientDetails (
+        Id INT PRIMARY KEY IDENTITY (1, 1) NOT NULL,
+        FirstName VARCHAR(20) NOT NULL,
+		LastName VARCHAR(20) NOT NULL,
+		ContactNumber INT NOT NULL,
+		EmailId	VARCHAR(30) NOT NULL,
+		CurrentAddress VARCHAR(100),
+		PermanentAddress VARCHAR(100),
+		DOB DateTime
+    )
+END
+
+---CREATE TABLE EmployeeDetails---
+IF EXISTS (SELECT * FROM SYS.TABLES WHERE NAME = N'EmployeeDetails' and TYPE = 'U') 
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM EmployeeDetails )
+	BEGIN 
+		DROP TABLE EmployeeDetails
+	END
+END
+
+IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE name='EmployeeDetails' and TYPE='U')
+BEGIN
+    CREATE TABLE EmployeeDetails (
+        Id INT PRIMARY KEY IDENTITY (1, 1) NOT NULL,
+        FirstName VARCHAR(20) NOT NULL,
+		LastName VARCHAR(20) NOT NULL,
+		ContactNumber INT NOT NULL,
+		EmailId	VARCHAR(30) NOT NULL,
+		CurrentAddress VARCHAR(100),
+		PermanentAddress VARCHAR(100),
+		DOB DateTime,
+		EmployeeId INT NOT NULL,
+		DepartmentId INT NOT NULL,
+		Salary INT,
+		JoiningDate DateTime
+    )
+END
+
+---CREATE TABLE DepartmentDetails---
+IF EXISTS (SELECT * FROM SYS.TABLES WHERE NAME = N'DepartmentDetails' and TYPE = 'U') 
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM DepartmentDetails )
+	BEGIN 
+		DROP TABLE DepartmentDetails
+	END
+END
+
+IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE name='DepartmentDetails' and TYPE='U')
+BEGIN
+    CREATE TABLE DepartmentDetails (
+        Id INT PRIMARY KEY IDENTITY (1, 1) NOT NULL,
+        DepartmentNo VARCHAR(20) NOT NULL,
+		DepartmentName VARCHAR(20) NOT NULL
+    )
+END
+
+---CREATE TABLE Roles---
+IF EXISTS (SELECT * FROM SYS.TABLES WHERE NAME = N'Roles' and TYPE = 'U') 
+BEGIN
+    IF NOT EXISTS(SELECT 1 FROM Roles )
+	BEGIN 
+		DROP TABLE Roles
+	END
+END
+
+IF NOT EXISTS (SELECT * FROM SYS.TABLES WHERE name='Roles' and TYPE='U')
+BEGIN
+    CREATE TABLE Roles (
+        Id INT PRIMARY KEY IDENTITY (1, 1) NOT NULL,
+        RoleName VARCHAR(20) NOT NULL,
+		IsActive BIT NOT NULL
+    )
+END
